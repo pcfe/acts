@@ -4,6 +4,9 @@
 set -u
 # Exit if a pipeline exits non-zero
 set -e
+# While making changes to the script, set -x
+# comment out for normal use
+#set -x
 
 starttime=$(date +%s)
 
@@ -42,6 +45,7 @@ backuptargets="${backuptargets=}"
 prebackupscript="${prebackupscript=}"
 postbackupscript="${postbackupscript=}"
 tarsnap="${tarsnap:=tarsnap}"
+tarsnapbackupoptions="${tarsnapbackupoptions=}"
 lockfile="${lockfile=/var/run/acts}"
 LANG="${LANG=en_US.UTF-8}" ; export LANG
 
@@ -116,7 +120,7 @@ backuprc=0 # Notice any failed backups
 for dir in $backuptargets ; do
     log_verbose "Backing up $dir..."
     nicedirname=$(echo "$dir" | tr -d '/')
-    if ! output="$($tarsnap -c -f "$hostname-$archivetype-$today-$nicedirname" -C / "$dir" 2>&1)" ; then
+    if ! output="$($tarsnap -c -f "$hostname-$archivetype-$today-$nicedirname" -C / $tarsnapbackupoptions "$dir" 2>&1)" ; then
         log_message "Failed to back up \"$dir\"! ($output)"
         backuprc=1
     fi

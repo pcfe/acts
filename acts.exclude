@@ -1,0 +1,11 @@
+*/.AppleDouble
+*/cache/*
+*/.cache/*
+*/Cache/*
+*nobackup/*
+*/.Trash/*
+*/Temporary\ Items/*
+*/tmp/*
+*/Trash/*
+*/.gvfs
+home/someuser/work/git/*
